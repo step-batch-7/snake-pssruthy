@@ -56,6 +56,10 @@ class Snake {
 
     this.positions.push([headX + deltaX, headY + deltaY]);
   }
+
+  grow() {
+    this.positions.unshift(this.previousTail);
+  }
 }
 
 class Food {
@@ -76,7 +80,7 @@ class Game {
     this.food = food;
   }
 
-  get hasSnakeAteFood() {
+  hasSnakeAteFood() {
     const [headX, headY] = this.snake.head;
     const [foodX, foodY] = this.food.position;
     return headX === foodX && headY === foodY;
@@ -193,18 +197,17 @@ const eraseFood = function(food) {
 const generateFood = () => {
   const foodX = Math.round(Math.random() * NUM_OF_COLS);
   const foodY = Math.round(Math.random() * NUM_OF_ROWS);
-  console.log(foodX, foodY);
 
   return new Food(foodX, foodY);
 };
 
 const updateGame = function(game) {
-  const { snake, ghostSnake } = game;
-  animateSnakes(snake, ghostSnake);
+  animateSnakes(game.snake, game.ghostSnake);
   drawFood(game.food);
 
-  if (game.hasSnakeAteFood) {
+  if (game.hasSnakeAteFood()) {
     eraseFood(game.food);
+    game.snake.grow();
     game.newFood = generateFood();
   }
 };
