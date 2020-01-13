@@ -1,3 +1,5 @@
+'use strict';
+
 const EAST = 0;
 const NORTH = 1;
 const WEST = 2;
@@ -73,6 +75,16 @@ class Game {
     this.ghostSnake = ghostSnake;
     this.food = food;
   }
+
+  get hasSnakeAteFood() {
+    const [headX, headY] = this.snake.head;
+    const [foodX, foodY] = this.food.position;
+    return headX === foodX && headY === foodY;
+  }
+
+  set newFood(food) {
+    this.food = food;
+  }
 }
 
 const NUM_OF_COLS = 100;
@@ -131,8 +143,8 @@ const moveAndDrawSnake = function(snake) {
   drawSnake(snake);
 };
 
-const attachEventListeners = snake => {
-  document.body.onkeydown = handleKeyPress.bind(null, snake);
+const attachEventListeners = game => {
+  document.body.onkeydown = handleKeyPress.bind(null, game.snake);
 };
 
 const initSnake = () => {
@@ -154,7 +166,7 @@ const initGhostSnake = () => {
 };
 
 const setup = game => {
-  attachEventListeners(game.snake);
+  attachEventListeners(game);
   createGrids();
 
   drawSnake(game.snake);
@@ -178,28 +190,33 @@ const eraseFood = function(food) {
   cell.classList.remove('food');
 };
 
-const isSnakeAteFood = function(snake, food) {
-  const [headX, headY] = snake.head;
-  const [foodX, foodY] = food.position;
-  return headX === foodX && headY === foodY;
+const generateFood = () => {
+  const foodX = Math.round(Math.random() * NUM_OF_COLS);
+  const foodY = Math.round(Math.random() * NUM_OF_ROWS);
+  console.log(foodX, foodY);
+
+  return new Food(foodX, foodY);
 };
 
 const updateGame = function(game) {
-  const { snake, ghostSnake, food } = game;
+  const { snake, ghostSnake } = game;
   animateSnakes(snake, ghostSnake);
-  if (isSnakeAteFood(snake, food)) {
-    eraseFood(food);
+  drawFood(game.food);
+
+  if (game.hasSnakeAteFood) {
+    eraseFood(game.food);
+    game.newFood = generateFood();
   }
 };
 
 const main = function() {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
-  const food = new Food(5, 5);
+  const food = generateFood();
 
   const game = new Game(snake, ghostSnake, food);
   setup(game);
-  drawFood(food);
+  drawFood(game.food);
 
   setInterval(updateGame, 200, game);
   setInterval(randomlyTurnSnake, 500, game.ghostSnake);
