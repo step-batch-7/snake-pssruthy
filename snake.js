@@ -38,6 +38,10 @@ class Snake {
     return this.type;
   }
 
+  get head() {
+    return this.positions[this.positions.length - 1];
+  }
+
   turnLeft() {
     this.direction.turnLeft();
   }
@@ -168,6 +172,25 @@ const randomlyTurnSnake = snake => {
     snake.turnLeft();
   }
 };
+const eraseFood = function(food) {
+  const [colId, rowId] = food.position;
+  const cell = getCell(colId, rowId);
+  cell.classList.remove('food');
+};
+
+const isSnakeAteFood = function(snake, food) {
+  const [headX, headY] = snake.head;
+  const [foodX, foodY] = food.position;
+  return headX === foodX && headY === foodY;
+};
+
+const updateGame = function(game) {
+  const { snake, ghostSnake, food } = game;
+  animateSnakes(snake, ghostSnake);
+  if (isSnakeAteFood(snake, food)) {
+    eraseFood(food);
+  }
+};
 
 const main = function() {
   const snake = initSnake();
@@ -178,6 +201,6 @@ const main = function() {
   setup(game);
   drawFood(food);
 
-  setInterval(animateSnakes, 200, game.snake, game.ghostSnake);
+  setInterval(updateGame, 200, game);
   setInterval(randomlyTurnSnake, 500, game.ghostSnake);
 };
