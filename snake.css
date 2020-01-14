@@ -8,6 +8,7 @@ h1 {
   margin: 0 auto;
   flex-wrap: wrap;
   border: 1px solid black;
+  background-color: rgb(247, 245, 230);
 }
 
 .cell {
@@ -16,15 +17,17 @@ h1 {
 }
 
 .snake {
-  background-color: black;
+  background-color: rgb(218, 55, 55);
+  border-radius: 2px;
 }
 
 .ghost {
-  background-color: gray;
+  background-color: rgb(94, 88, 88);
+  border-radius: 3px;
 }
 
 .food {
-  background-color: red;
+  background-color: rgb(37, 34, 221);
 }
 
 #scoreBoard {
@@ -32,10 +35,11 @@ h1 {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  border: 1px dashed green;
+  padding: 7px;
+  border: 2px dashed gray;
   font-weight: bold;
 }
 
 #score {
-  color: green;
+  color: red;
 }
