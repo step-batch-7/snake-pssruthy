@@ -55,6 +55,7 @@ const drawScorecard = function(scorecard) {
   const scoreId = document.getElementById('score');
   scoreId.innerText = scorecard.score;
 };
+
 const handleKeyPress = snake => {
   snake.turnLeft();
 };
@@ -85,10 +86,6 @@ const initGhostSnake = () => {
     [42, 30]
   ];
   return new Snake(ghostSnakePosition, new Direction(SOUTH), 'ghost');
-};
-
-const initScorecard = function() {
-  return new Scorecard();
 };
 
 const setup = game => {
@@ -134,15 +131,22 @@ const updateGame = function(game) {
     game.newFood = generateFood();
     game.scorecard.update(10);
   }
+  if (game.isOver()) {
+    alert('game Over');
+  }
 };
 
-const main = function() {
+const initGame = function() {
   const snake = initSnake();
   const ghostSnake = initGhostSnake();
   const food = generateFood();
-  const scorecard = initScorecard();
+  const scorecard = new Scorecard();
 
-  const game = new Game(snake, ghostSnake, food, scorecard);
+  return new Game(snake, ghostSnake, food, scorecard);
+};
+
+const main = function() {
+  const game = initGame();
   setup(game);
   drawFood(game.food);
 
