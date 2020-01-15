@@ -121,19 +121,10 @@ const generateFood = () => {
   return new Food(foodX, foodY);
 };
 
-const updateGame = function(game) {
+const displayGame = function(game) {
   animateSnakes(game.snake, game.ghostSnake);
   drawFood(game.food);
   drawScorecard(game.scorecard);
-  if (game.hasSnakeAteFood()) {
-    eraseFood(game.food);
-    game.snake.grow();
-    game.newFood = generateFood();
-    game.scorecard.update(10);
-  }
-  if (game.isOver()) {
-    alert('game Over');
-  }
 };
 
 const initGame = function() {
@@ -150,6 +141,13 @@ const main = function() {
   setup(game);
   drawFood(game.food);
 
-  setInterval(updateGame, 200, game);
   setInterval(randomlyTurnSnake, 500, game.ghostSnake);
+  const updateInterval = setInterval(() => {
+    if (game.isOver()) {
+      clearInterval(updateInterval);
+      alert('Game Over');
+    }
+    displayGame(game);
+    game.update();
+  }, 200);
 };

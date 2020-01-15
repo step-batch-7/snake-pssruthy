@@ -25,4 +25,13 @@ class Game {
     const [headX, headY] = location.pop();
     return location.some(([posX, posY]) => headX === posX && headY === posY);
   }
+
+  update() {
+    if (this.hasSnakeAteFood()) {
+      eraseFood(this.food);
+      this.snake.grow();
+      this.newFood = generateFood();
+      this.scorecard.update(10);
+    }
+  }
 }
