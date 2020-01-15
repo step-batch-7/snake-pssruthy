@@ -121,6 +121,15 @@ const generateFood = () => {
   return new Food(foodX, foodY);
 };
 
+const gameEnd = function(game) {
+  const end = document.getElementById('gameOver');
+  const grid = document.getElementById('grid');
+  console.log(end.style.display);
+
+  end.style.display = 'block';
+  grid.style.display = 'none';
+};
+
 const displayGame = function(game) {
   animateSnakes(game.snake, game.ghostSnake);
   drawFood(game.food);
@@ -145,7 +154,7 @@ const main = function() {
   const updateInterval = setInterval(() => {
     if (game.isOver()) {
       clearInterval(updateInterval);
-      alert('Game Over');
+      gameEnd(game);
     }
     displayGame(game);
     game.update();
