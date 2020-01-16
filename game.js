@@ -2,8 +2,8 @@
 
 const isTouchBorder = function(snake) {
   const [headX, headY] = snake.head;
-  const isXCoInRange = headX > NUM_OF_COLS || headX < 0;
-  const isYCoInRange = headY > NUM_OF_ROWS || headY < 0;
+  const isXCoInRange = headX > NUM_OF_COLS - 1 || headX < 0;
+  const isYCoInRange = headY > NUM_OF_ROWS - 1 || headY < 0;
   return isXCoInRange || isYCoInRange;
 };
 
@@ -48,5 +48,8 @@ class Game {
       this.newFood = generateFood();
       this.scorecard.update(10);
     }
+  }
+  turnSnake(direction) {
+    this.snake.turnSnake(direction);
   }
 }

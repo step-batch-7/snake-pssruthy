@@ -14,9 +14,6 @@ class Snake {
   get head() {
     return this.positions[this.positions.length - 1];
   }
-  turnLeft() {
-    this.direction.turnLeft();
-  }
   move() {
     const [headX, headY] = this.positions[this.positions.length - 1];
     this.previousTail = this.positions.shift();
@@ -25,5 +22,10 @@ class Snake {
   }
   grow() {
     this.positions.unshift(this.previousTail);
+  }
+  turnSnake(playerDir) {
+    if (!this.direction.isSameOrOppositeDirection(playerDir)) {
+      this.direction.turn(playerDir);
+    }
   }
 }

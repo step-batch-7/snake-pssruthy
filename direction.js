@@ -10,7 +10,10 @@ class Direction {
   get delta() {
     return this.deltas[this.heading];
   }
-  turnLeft() {
-    this.heading = (this.heading + 1) % 4;
+  turn(direction) {
+    this.heading = direction;
+  }
+  isSameOrOppositeDirection(direction) {
+    return this.heading % 2 === direction % 2;
   }
 }

@@ -32,12 +32,21 @@ const createGrids = function() {
   }
 };
 
-const handleKeyPress = snake => {
-  snake.turnLeft();
+const handleKeyPress = game => {
+  const playerDir = event.key;
+  const snakeDir = {
+    ArrowRight: 0,
+    ArrowUp: 1,
+    ArrowLeft: 2,
+    ArrowDown: 3
+  };
+  if (Object.keys(snakeDir).includes(playerDir)) {
+    game.turnSnake(snakeDir[playerDir]);
+  }
 };
 
 const attachEventListeners = game => {
-  document.body.onkeydown = handleKeyPress.bind(null, game.snake);
+  document.body.onkeydown = handleKeyPress.bind(null, game);
 };
 
 const initSnake = () => {
@@ -68,10 +77,8 @@ const setup = game => {
 };
 
 const randomlyTurnSnake = snake => {
-  let x = Math.random() * 100;
-  if (x > 50) {
-    snake.turnLeft();
-  }
+  const direction = Math.floor((Math.random() * 100) % 4);
+  snake.turnSnake(direction);
 };
 
 const generateFood = () => {
@@ -103,10 +110,11 @@ const main = function() {
   setup(game);
   drawFood(game.food);
 
-  setInterval(randomlyTurnSnake, 500, game.ghostSnake);
+  const ghostInt = setInterval(randomlyTurnSnake, 500, game.ghostSnake);
   const updateInterval = setInterval(() => {
     if (game.isOver()) {
       clearInterval(updateInterval);
+      clearInterval(ghostInt);
       gameEnd(game);
     }
     displayGame(game);
