@@ -32,38 +32,8 @@ const createGrids = function() {
   }
 };
 
-const eraseTail = function(snake) {
-  let [colId, rowId] = snake.previousTail;
-  const cell = getCell(colId, rowId);
-  cell.classList.remove(snake.species);
-};
-
-const drawSnake = function(snake) {
-  snake.location.forEach(([colId, rowId]) => {
-    const cell = getCell(colId, rowId);
-    cell.classList.add(snake.species);
-  });
-};
-
-const drawFood = function(food) {
-  const [colId, rowId] = food.position;
-  const cell = getCell(colId, rowId);
-  cell.classList.add('food');
-};
-
-const drawScorecard = function(scorecard) {
-  const scoreId = document.getElementById('score');
-  scoreId.innerText = scorecard.score;
-};
-
 const handleKeyPress = snake => {
   snake.turnLeft();
-};
-
-const moveAndDrawSnake = function(snake) {
-  snake.move();
-  eraseTail(snake);
-  drawSnake(snake);
 };
 
 const attachEventListeners = game => {
@@ -97,21 +67,11 @@ const setup = game => {
   drawScorecard(game.scorecard);
 };
 
-const animateSnakes = (snake, ghostSnake) => {
-  moveAndDrawSnake(snake);
-  moveAndDrawSnake(ghostSnake);
-};
-
 const randomlyTurnSnake = snake => {
   let x = Math.random() * 100;
   if (x > 50) {
     snake.turnLeft();
   }
-};
-const eraseFood = function(food) {
-  const [colId, rowId] = food.position;
-  const cell = getCell(colId, rowId);
-  cell.classList.remove('food');
 };
 
 const generateFood = () => {
@@ -124,16 +84,9 @@ const generateFood = () => {
 const gameEnd = function() {
   const end = document.getElementById('gameOver');
   const grid = document.getElementById('grid');
-  console.log(end.style.display);
 
   end.style.display = 'block';
   grid.style.display = 'none';
-};
-
-const displayGame = function(game) {
-  animateSnakes(game.snake, game.ghostSnake);
-  drawFood(game.food);
-  drawScorecard(game.scorecard);
 };
 
 const initGame = function() {

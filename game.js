@@ -38,8 +38,6 @@ class Game {
   isOver() {
     const touchBody = this.isTouchBody();
     const touchBorder = isTouchBorder(this.snake);
-    console.log(touchBorder);
-
     return touchBorder || touchBody;
   }
 
