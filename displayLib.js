@@ -1,15 +1,18 @@
 'use strict';
 
 const eraseTail = function(snake) {
-  let [colId, rowId] = snake.previousTail;
+  const { previousTail, type } = snake.status;
+
+  const [colId, rowId] = previousTail;
   const cell = getCell(colId, rowId);
-  cell.classList.remove(snake.species);
+  cell.classList.remove(type);
 };
 
 const drawSnake = function(snake) {
-  snake.location.forEach(([colId, rowId]) => {
+  const { positions, type } = snake.status;
+  positions.forEach(([colId, rowId]) => {
     const cell = getCell(colId, rowId);
-    cell.classList.add(snake.species);
+    cell.classList.add(type);
   });
 };
 
