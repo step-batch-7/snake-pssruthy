@@ -1,3 +1,12 @@
+'use strict';
+
+const isTouchBorder = function(snake) {
+  const [headX, headY] = snake.head;
+  const isXCoInRange = headX > NUM_OF_COLS || headX < 0;
+  const isYCoInRange = headY > NUM_OF_ROWS || headY < 0;
+  return isXCoInRange || isYCoInRange;
+};
+
 class Game {
   constructor(snake, ghostSnake, food, scorecard) {
     this.snake = snake;
@@ -20,10 +29,18 @@ class Game {
     return this.score;
   }
 
-  isOver() {
+  isTouchBody() {
     const location = this.snake.location;
     const [headX, headY] = location.pop();
     return location.some(([posX, posY]) => headX === posX && headY === posY);
+  }
+
+  isOver() {
+    const touchBody = this.isTouchBody();
+    const touchBorder = isTouchBorder(this.snake);
+    console.log(touchBorder);
+
+    return touchBorder || touchBody;
   }
 
   update() {

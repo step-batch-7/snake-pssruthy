@@ -121,7 +121,7 @@ const generateFood = () => {
   return new Food(foodX, foodY);
 };
 
-const gameEnd = function(game) {
+const gameEnd = function() {
   const end = document.getElementById('gameOver');
   const grid = document.getElementById('grid');
   console.log(end.style.display);
