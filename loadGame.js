@@ -71,9 +71,10 @@ const setup = game => {
   attachEventListeners(game);
   createGrids();
 
-  drawSnake(game.snake);
-  drawSnake(game.ghostSnake);
-  drawScorecard(game.scorecard);
+  const { snake, ghostSnake, scorecard } = game.status;
+  drawSnake(snake);
+  drawSnake(ghostSnake);
+  drawScorecard(scorecard);
 };
 
 const randomlyTurnSnake = snake => {
@@ -108,9 +109,10 @@ const initGame = function() {
 const main = function() {
   const game = initGame();
   setup(game);
-  drawFood(game.food);
+  const { food, ghostSnake } = game.status;
+  drawFood(food);
 
-  const ghostInt = setInterval(randomlyTurnSnake, 500, game.ghostSnake);
+  const ghostInt = setInterval(randomlyTurnSnake, 500, ghostSnake);
   const updateInterval = setInterval(() => {
     if (game.isOver()) {
       clearInterval(updateInterval);

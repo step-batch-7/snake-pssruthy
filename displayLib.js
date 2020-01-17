@@ -46,7 +46,8 @@ const eraseFood = function(food) {
 };
 
 const displayGame = function(game) {
-  animateSnakes(game.snake, game.ghostSnake);
-  drawFood(game.food);
-  drawScorecard(game.scorecard);
+  const { snake, ghostSnake, food, scorecard } = game.status;
+  animateSnakes(snake, ghostSnake);
+  drawFood(food);
+  drawScorecard(scorecard);
 };
