@@ -23,8 +23,9 @@ const drawFood = function(food) {
 };
 
 const drawScorecard = function(scorecard) {
+  const { score } = scorecard.status;
   const scoreId = document.getElementById('score');
-  scoreId.innerText = scorecard.score;
+  scoreId.innerText = score;
 };
 
 const moveAndDrawSnake = function(snake) {

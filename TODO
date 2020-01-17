@@ -25,3 +25,7 @@
 --DONE-- * Add a scoring mechanism
 
 --DONE-- * Move the snake in four directions.
+
+* wrap ghostSnake
+
+* Make class identifiers private
