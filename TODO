@@ -26,6 +26,8 @@
 
 --DONE-- * Move the snake in four directions.
 
-* wrap ghostSnake
+* wrap snakes
 
 --DONE-- * Make class identifiers private
+
+* Give the ghost snake the ability to eat the food.

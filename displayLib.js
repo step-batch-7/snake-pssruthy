@@ -29,7 +29,6 @@ const drawScorecard = function(scorecard) {
 };
 
 const moveAndDrawSnake = function(snake) {
-  snake.move();
   eraseTail(snake);
   drawSnake(snake);
 };

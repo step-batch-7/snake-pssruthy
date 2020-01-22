@@ -2,9 +2,9 @@
 
 const isTouchBorder = function(snake) {
   const [headX, headY] = snake.head;
-  const isXCoInRange = headX > NUM_OF_COLS - 1 || headX < 0;
-  const isYCoInRange = headY > NUM_OF_ROWS - 1 || headY < 0;
-  return isXCoInRange || isYCoInRange;
+  const isXCoNotInRange = headX >= NUM_OF_COLS || headX < 0;
+  const isYCoNotInRange = headY >= NUM_OF_ROWS || headY < 0;
+  return isXCoNotInRange || isYCoNotInRange;
 };
 
 class Game {
@@ -47,6 +47,8 @@ class Game {
   }
 
   update() {
+    this.#snake.move();
+    this.#ghostSnake.move();
     if (this.hasSnakeAteFood()) {
       eraseFood(this.#food);
       this.#snake.grow();

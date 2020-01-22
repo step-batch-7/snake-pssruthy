@@ -114,12 +114,12 @@ const main = function() {
 
   const ghostInt = setInterval(randomlyTurnSnake, 500, ghostSnake);
   const updateInterval = setInterval(() => {
+    game.update();
     if (game.isOver()) {
       clearInterval(updateInterval);
       clearInterval(ghostInt);
       gameEnd(game);
     }
     displayGame(game);
-    game.update();
   }, 200);
 };
