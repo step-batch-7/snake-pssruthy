@@ -17,6 +17,7 @@ const drawSnake = function(snake) {
 };
 
 const drawFood = function(food) {
+  eraseFood();
   const [colId, rowId] = food.position;
   const cell = getCell(colId, rowId);
   cell.classList.add('food');
@@ -38,10 +39,11 @@ const animateSnakes = (snake, ghostSnake) => {
   moveAndDrawSnake(ghostSnake);
 };
 
-const eraseFood = function(food) {
-  const [colId, rowId] = food.position;
-  const cell = getCell(colId, rowId);
-  cell.classList.remove('food');
+const eraseFood = function() {
+  const prevFood = document.querySelector('.food');
+  if(prevFood) {
+    prevFood.classList.remove('food');
+  }
 };
 
 const displayGame = function(game) {

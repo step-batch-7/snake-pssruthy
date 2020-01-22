@@ -50,7 +50,7 @@ class Game {
     this.#snake.move();
     this.#ghostSnake.move();
     if (this.hasSnakeAteFood()) {
-      eraseFood(this.#food);
+      // eraseFood(this.#food);
       this.#snake.grow();
       this.newFood = generateFood();
       this.#scorecard.update(10);
