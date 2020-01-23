@@ -50,10 +50,13 @@ class Game {
     this.#snake.move();
     this.#ghostSnake.move();
     if (this.hasSnakeAteFood()) {
-      // eraseFood(this.#food);
+      let score = 2;
+      if(this.#food.isSpecial) {
+        score = 5;
+      }
+      this.#scorecard.update(score);
       this.#snake.grow();
       this.newFood = generateFood();
-      this.#scorecard.update(10);
     }
   }
   turnSnake(direction) {

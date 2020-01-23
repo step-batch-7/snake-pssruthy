@@ -27,8 +27,12 @@ h1 {
   border-radius: 3px;
 }
 
-.food {
+.normalFood {
   background-color: rgb(37, 34, 221);
+}
+
+.specialFood {
+  background-color: red;
 }
 
 #scoreBoard {

@@ -20,7 +20,7 @@ const drawFood = function(food) {
   eraseFood();
   const [colId, rowId] = food.position;
   const cell = getCell(colId, rowId);
-  cell.classList.add('food');
+  cell.classList.add(food.type);
 };
 
 const drawScorecard = function(scorecard) {
@@ -40,9 +40,9 @@ const animateSnakes = (snake, ghostSnake) => {
 };
 
 const eraseFood = function() {
-  const prevFood = document.querySelector('.food');
+  const prevFood = document.querySelector('.specialFood, .normalFood');
   if(prevFood) {
-    prevFood.classList.remove('food');
+    prevFood.classList.remove(prevFood.classList[1]);
   }
 };
 
